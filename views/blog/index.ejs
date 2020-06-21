@@ -1,0 +1,74 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<%- include('../partials/flashMsg') %>
+<div class="container">
+    <div class="row my-3">
+        <div class="col-12 col-sm-9 mb-3">
+            <% if (!locals.blogs || locals.blogs.length === 0) { %>
+                <!-- display this if no blog post -->
+                <h2>No blog post</h2>
+            <% } else if (page === 1) { %>
+                <!-- The first Post -->
+                <div class="card mb-3">
+                    <% if (blogs[0].image.length) { %>
+                    <a href="/blog/<%= blogs[0].id %>">
+                        <img src="<%= blogs[0].image[0].url %>" class="card-img-top vh-60" alt="">
+                    </a>
+                    <% } %>
+                    <div class="card-body">
+                        <a href="/blog/<%= blogs[0].id %>">
+                            <h3 class="card-title"><%= blogs[0].title %></h3>
+                        </a>
+                        <p class="card-text"><%= blogs[0].preview %></p>
+                        <p class="card-text">
+                            <p class="text-muted"><%= moment(blogs[0].createdAt).format("Do MMMM YYYY h:mma") %></p>
+                        </p>
+                    </div>
+                </div>
+                <!-- The other Post -->
+                <% for (let i=1; i < blogs.length; i++) { %>
+                    <%- include('./partials/blogCard', {i: i}) %>
+                <% } %>
+            <% } else { %>
+                <!-- just list out the blogs -->
+                <% for (let i=0; i < blogs.length; i++) { %>
+                    <%- include('./partials/blogCard', {i: i}) %>
+                <% } %>
+            <% } %>
+            <!-- pagination -->
+            <div class="dropdown d-flex justify-content-between align-items-baseline">
+                
+                <a class="align-baseline px-0 btn btn-link <%= hasPrevPage ? 'visible' : 'invisible' %>" href="/blog?page=<%= page - 1 %>">Prev Page </a>
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= page %>
+                </a>
+                <a class="align-baseline px-0 btn btn-link <%= hasNextPage ? 'visible' : 'invisible' %>" href="/blog?page=<%= page + 1 %>">Next Page</a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <% for (let i=1; i <= locals.totalPages; i++) { %>
+                        <a class="dropdown-item <%= page === i ? 'active' : null %>" href="/blog?page=<%= i %>"><%= i %></a>
+                    <% } %>
+                </div>
+              </div>
+        </div>
+        <div class="col-12 col-sm-3">
+            <% if (locals.currentUser && locals.currentUser.isAdmin) { %>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Action</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <form action="/blog" method="POST" class="d-inline">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn btn-link btn-block p-0 m-0 text-left">New Post</button>
+                        </form>
+                    </li>
+                </ul>
+                </div>
+            <% } %>
+            <%- include('./partials/newestPost') %>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,23 @@
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <% if (blogs[i].image.length !== 0) { %>
+        <div class="col-md-5">
+            <a href="/blog/<%= blogs[i].id %>">
+                <img src="<%= blogs[i].image.length !== 0 ? blogs[i].image[0].url : null %>"
+                    class="card-img vh-50">
+            </a>
+        </div>
+        <% } %>
+        <div class="col-md-7">
+            <div class="card-body">
+                <h3 class="card-title"><a href="/blog/<%= blogs[i].id %>"><%= blogs[i].title %></a>
+                </h3>
+                <p class="card-text"><%- blogs[i].preview %></p>
+                <p class="card-text">
+                    <p class="text-muted">
+                        <%= moment(blogs[i].createdAt).format("Do MMMM YYYY h:mma") %></p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

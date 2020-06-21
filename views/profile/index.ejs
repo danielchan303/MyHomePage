@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<div class="container">
+    <div class="clearfix">
+        <h1 class="float-left">Personal Profile</h1>
+        <a class="float-right btn btn-primary m-2" href="/profile/edit">
+            <img src="/images/edit_icon.svg" alt="edit">Edit
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-2 p-0 m-3 rounded-circle" style="background-color: rgba(0,0,0,0.5);">
+            <img class="img-fluid rounded-circle" style="width:100%" src="<%= currentUser.profileImage ? currentUser.profileImage.url : '/images/profile_img.svg' %>" alt="">
+        </div>
+    </div>
+    
+    <h5>E-mail:</h5>
+    <p><%= currentUser.email %></p>
+    <h5>Display Name:</h5>
+    <p><%= currentUser.displayName %></p>
+    <h5>Account Created At:</h5>
+    <p><%= moment(currentUser.createdAt).format("Do MMMM YYYY") %></p>
+</div>
+<%- include('../partials/footer') %>

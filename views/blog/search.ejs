@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<%- include('../partials/flashMsg') %>
+<div class="container pt-3">
+    <h1>Search Result</h1>
+    <!-- display this if no blog post -->
+    <% if (locals.blogs === undefined) { %>
+    <h2>Cannot find any post match your search</h2>
+    <% } %>
+    <!-- just list out the blogs -->
+    <% if (locals.blogs !== undefined && locals.blogs.length > 0) { %>
+        <% for (let i=0; i < blogs.length; i++) { %>
+            <%- include('./partials/blogCard', {i: i}) %>
+        <% } %>
+    <% } %>
+    <!-- pagination -->
+    <% if (locals.blog !== undefined) {%>
+    <div class="dropdown d-flex justify-content-between align-items-baseline">
+        <a class="align-baseline px-0 btn btn-link <%= hasPrevPage ? 'visible' : 'invisible' %>"
+            href="/blog?page=<%= page - 1 %>">Prev Page </a>
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= page %>
+        </a>
+        <a class="align-baseline px-0 btn btn-link <%= hasNextPage ? 'visible' : 'invisible' %>"
+            href="/blog?page=<%= page + 1 %>">Next Page</a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <% for (let i=1; i <= locals.totalPages; i++) { %>
+            <a class="dropdown-item <%= page === i ? 'active' : null %>" href="/blog?page=<%= i %>"><%= i %></a>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>

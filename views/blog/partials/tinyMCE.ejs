@@ -1,0 +1,40 @@
+<script src="https://cdn.tiny.cloud/1/s2va3dl57eq5v1n78pq79ajk08qz5wy0jbvlirk5c9zq32qb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function deletePhoto(id, element) {
+        axios.defaults.headers.common['csrf-token'] = '<%= csrfToken %>';
+        axios.delete(`/blog/<%= blog._id %>/${encodeURIComponent(id)}`).then(response => {
+            $(element).parent().parent().remove();
+        });
+    }
+
+    function images_upload_handler(blobInfo, success, failure) {
+        axios.defaults.headers.common['csrf-token'] = '<%= csrfToken %>';
+
+        var formData = new FormData();
+        formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+        var url = '/blog/<%= locals.blogId||blog._id %>/uploadImage';
+        axios.post(url, formData).then(function(response) {
+            success(response.data.location);
+            // add the image to list
+            $('#imageList').append(`<%- include('./removePic', {id: '${response.data.id}', url: '${response.data.location}'}) %>`);
+        }).catch(function(error) {
+            failure('Cannot upload successfully, please try again later');
+        });
+    }
+
+    tinymce.init({
+        setup: function(editor) {
+            editor.on('init', function(e) {
+                editor.setContent(`<%- blog.body %>`);
+            });
+        },
+        selector: 'textarea',  // change this value according to the HTML
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image link numlist bullist',
+        plugins: "image imagetools autoresize lists link",
+        images_upload_handler: images_upload_handler
+    });
+</script>

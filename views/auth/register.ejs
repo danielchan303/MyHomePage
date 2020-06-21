@@ -1,0 +1,91 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<%- include('../partials/flashMsg') %>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-9 col-md-6 mx-auto">
+            <!-- Register Form -->
+            <div class="card my-3">
+                <div class="card-header">
+                    <h5>Register</h5>
+                </div>
+                <form id="registerForm" class="<% (locals.formError) ? 'was-validated' : null %>" action="/register" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input required id="email" name="email" type="email" class="form-control" 
+                                placeholder="e-mail"
+                                value="<%= locals.formData ? locals.formData.email: null %>">
+                                <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <input required id="confirmEmail" name="confirmEmail" type="email" class="form-control" 
+                                placeholder="Confirm e-mail"
+                                value="<%= locals.formData ? locals.formData.confirmEmail: null %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <input required id="password" name="password" type="password" class="form-control" 
+                                placeholder="password"
+                                value="<%= locals.formData ? locals.formData.password: null %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <input required id="confirmPassword" name="confirmPassword" type="password" class="form-control" 
+                                placeholder="Confirm Password"
+                                value="<%= locals.formData ? locals.formData.confirmPassword: null %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <input required id="displayName" name="displayName" type="text" class="form-control" 
+                                placeholder="Display name"
+                                value="<%= locals.formData ? locals.formData.displayName: null %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button disabled class="g-recaptcha btn btn-primary btn-block" data-sitekey="6LelzegUAAAAAGo83xHuCMoKncs-MImOhlMU4YCa" data-callback='onSubmit'>Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    var constraint = {
+        email: {email: true, presence: {allowEmpty: false}},
+        confirmEmail: {equality: "email", presence: {allowEmpty: false}},
+        password: {length: {minimum: 8}, presence: {allowEmpty: false}},
+        confirmPassword: {equality: "password", presence: {allowEmpty: false}},
+        displayName: {presence: {allowEmpty: false}}
+    }
+
+    $('#registerForm input').on('input', function() {
+        var name = $(this).attr('name');
+        var errors = validate($('#registerForm'), constraint);
+
+        $(this).addClass('is-valid').removeClass('is-invalid');
+        $(this).next().html('');
+
+        if (errors === undefined) {
+            $('form button').attr('disabled', false);
+            return;
+        } else {
+            $('form button').attr('disabled', true);
+        }
+
+        if (name in errors) {
+            $(this).addClass('is-invalid');
+            $(this).removeClass('is-valid');
+            $(this).next().html(errors[name][0]);
+        }
+    });
+
+    function onSubmit(event) {
+        document.querySelector('#registerForm').submit();
+    }
+</script>
+<%- include('../partials/footer') %>

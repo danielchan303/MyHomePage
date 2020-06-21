@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<div class="container">
+    <h1>Email Verification</h1>
+    <% if (locals.isValid) { %>
+    <p>Your email is now verified!</p>
+    <% if (!locals.user) { %>
+    <a href="/login">Click here to login</a>
+    <% } %>
+    <% } else { %>
+    <p>Your verification link is either invalid or expired</p>
+    <a href="/login">Click here to send verification email again</a>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>

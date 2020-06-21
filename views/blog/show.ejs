@@ -1,0 +1,124 @@
+<%- include('../partials/header', {extraCSS: '<style>.grecaptcha-badge { visibility: hidden; }</style>'}) %>
+<%- include('../partials/navBar') %>
+<%- include('../partials/flashMsg') %>
+<div class="container">
+    <div class="row my-3">
+        <div id="blog" class="col-12 col-sm-9">
+            <!-- blog title and body -->
+            <h1><%= blog.title %></h1>
+            <hr>
+            <%- blog.body %>
+            <hr>
+            <h1 id="comment">Comment</h1>
+            <% if (!currentUser) { %>
+            <h4><a href="/login">Login to leave a message</a></h4>
+            <% } else if (currentUser && locals.isEmailVerified) { %>
+            <!-- comment form -->
+            <div class="row">
+                <div class="col-1 pr-0">
+                    <img width="100%" class="rounded-circle"
+                        src="<%= currentUser.profileImage ? currentUser.profileImage.url : '/images/profile_img_b.svg' %>"
+                        alt="">
+                </div>
+                <div class="col-11">
+                    <form id="commentForm" method="POST" action="/blog/<%= blog._id %>/comment">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="form-group">
+                            <textarea class="form-control" name="comment" rows="2"
+                                placeholder="Leave a comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary float-right g-recaptcha" data-sitekey="6LelzegUAAAAAGo83xHuCMoKncs-MImOhlMU4YCa" data-callback='onSubmit'>Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% } else { %>
+            <p>You have to verify your email before leaving comment</p>
+            <% } %>
+            <!-- show the comment -->
+            <% if (!comment.docs) { %>
+            <h4>No comment</h4>
+            <% } else { %>
+            <ul class="list-unstyled">
+                <% comment.docs.forEach(comment => { %>
+                <li class="media mb-3">
+                    <img width="50px" src="<%= comment.userImg %>" class="mr-3 rounded-circle">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1"><%= comment.displayName %></h5>
+                        <p class="mb-1"><%= comment.body %></p>
+                        <small class="text-muted"><%= moment(comment.createdAt).format('DD-MM-YYYY hh:mma') %></small>
+                    </div>
+                </li>
+                <% }) %>
+            </ul>
+            <div class="clearfix">
+                <a href="/blog/<%= blog._id %>?page=<%= comment.page - 1 %>"
+                    class="btn btn-link float-left <%= comment.hasPrevPage ? 'visible' : 'invisible' %>">Older
+                    Comment</a>
+                <a href="/blog/<%= blog._id %>?page=<%= comment.page + 1 %>"
+                    class="btn btn-link float-right <%= comment.hasNextPage ? 'visible' : 'invisible' %>">Newer
+                    Comment</a>
+
+            </div>
+            <% } %>
+        </div>
+        <div class="col-12 col-sm-3">
+            <!-- admin buttons -->
+            <div class="row">
+                <% if (locals.currentUser && locals.currentUser.isAdmin) { %>
+                <div class="col-6 col-sm-12 mb-3">
+                    <a class="btn btn-primary btn-block" href="/blog/<%= blog._id %>/edit">Edit Post</a>
+                </div>
+                <!-- Button trigger modal -->
+                <div class="col-6 col-sm-12 mb-3">
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
+                        data-target="#deletePostModal">
+                        Delete Post
+                    </button>
+                </div>
+                <% } %>
+            </div>
+
+            <%- include('./partials/newestPost') %>
+        </div>
+    </div>
+    <div>
+        This site is protected by reCAPTCHA and the Google
+        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+    </div>
+</div>
+
+<!-- Delete Post Modal -->
+<div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Delete Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="btn btn-danger btn-block">Delete Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function onSubmit(event) {
+        document.querySelector('#commentForm').submit();
+    }
+</script>
+<%- include('../partials/footer') %>

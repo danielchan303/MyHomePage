@@ -1,0 +1,14 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <h5>Latest Blog</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <% if (!locals.recentBlogs || recentBlogs.length === 0) { %>
+        <li class="list-group-item">No blog post</li>
+        <% } else { %>
+        <% recentBlogs.forEach(blog => { %>
+        <li class="list-group-item"><a href="/blog/<%= blog._id %>"><%= blog.title %></a></li>
+        <% }) %>
+        <% } %>
+    </ul>
+</div>

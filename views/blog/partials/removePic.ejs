@@ -1,0 +1,8 @@
+<li style="display: inline-block; position: relative;">
+    <img 
+        src="<%= (locals.image ? locals.image.url: null) || url %>" 
+        width="80" />
+    <div class="deletePhotoOverlay" style="position:absolute; right:0">
+        <img src="/images/delete.svg" onClick="deletePhoto('<%= (locals.image ? locals.image._id: null) || id %>', this)" alt="">
+    </div>
+</li>

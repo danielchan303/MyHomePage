@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Resume - Daniel Chan</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/stylesheets/resume.min.css" rel="stylesheet">
+
+  <!-- material icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    nav .dropdown-item:hover {
+      background-color: unset;
+    }
+  </style>
+</head>
+
+<body id="page-top">
+  <div>
+    <%- include('./partials/navBar', {extra: 'fixed-top'}) %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom" id="sideNav">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">Daniel Chan</span>
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+            src="https://res.cloudinary.com/daniel-chan/image/upload/v1586773773/blog/cv_photo_w5prjf.jpg" alt="">
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="material-icons">arrow_upward</span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#education">Education</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+  <div class="container-fluid p-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+      <div class="w-100">
+        <h1 class="mb-0">Daniel
+          <span class="text-primary">Chan</span>
+        </h1>
+        <div class="subheading mb-4">
+          <a href="mailto:danielchan303@gmail.com">danielchan303@gmail.com</a>
+        </div>
+        <p class="lead mb-4">
+          I don't have a CS degree, but I have good understanding of web development.
+          I have been taken these course in the Udemy:
+        </p>
+        <ul>
+          <li>The Web Developer Bootcamp</li>
+          <li>The Ultimate MySQL Bootcamp - Go from SQL Beginner to Expert</li>
+          <li>React - The Complete Guide</li>
+        </ul>
+        <p>
+          I have confience and experiencce in creating websites.
+          This blog is built by using the mongodb, express.js, ejs (express template engine), and bootstrap (for styling).
+          I have also built <a href="https://todo.daniel-chan.tk" target="_blank">a real-time todo app</a> using react for front-end, with mongodb, express.js and socket.io (real time communication library) in backend.
+          I am sincerely hope to get the chance to work as a web developer.
+        </p>
+      </div>
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+      <div class="w-100">
+        <h2 class="mb-4">Experience</h2>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-4">
+          <div class="resume-content">
+            <h3 class="mb-0">Course Instructor</h3>
+            <div class="subheading mb-3">Techbob Academy Limited</div>
+            <ul>
+              <li>Teaching game coding, app coding, and web development to young kids in learning center.</li>
+              <li>Teaching in international kindergartens and local primary school.</li>
+              <li>Student mentor in Greater Bay Area Youth Coding & Robotics Contest</li>
+            </ul>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">April 2019 - Present</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-4">
+          <div class="resume-content">
+            <h3 class="mb-0">QC Analyst</h3>
+            <div class="subheading mb-3">Bright Future Pharmaceutical Lab. Ltd.</div>
+            <ul>
+              <li>Routine raw material and product microbiological testing</li>
+              <li>Factory environmental monitoring</li>
+              <li>Laboratory maintenance and clearance</li>
+            </ul>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">December 2018 - March 2019</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+      <div class="w-100">
+        <h2 class="mb-4">Education</h2>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-4">
+          <div class="resume-content">
+            <h3 class="mb-0">The Hong Kong Polytechnic University</h3>
+            <div class="subheading mb-3">B. Sci. in Food Safety and Technologies</div>
+            <div>Second Class Honour (Division 1)</div>
+            <p>GPA: 3.47</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">2014 - 2018</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between">
+          <div class="resume-content">
+            <h3 class="mb-0">TWGHs Lo Kon Ting Memorial College</h3>
+            <div class="subheading mb-3">Form Six</div>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">2008-2014</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
+      <div class="w-100">
+        <h2 class="mb-4">Skills</h2>
+
+        <div class="subheading mb-3">Programming Languages &amp; Tools</div>
+        <ul>
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>React.js</li>
+          <li>Express</li>
+          <li>MongoDB</li>
+          <li>SQL</li>
+        </ul>
+    </section>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+
+  <!-- Plugin JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="/javascripts/resume.min.js"></script>
+
+</body>
+
+</html>

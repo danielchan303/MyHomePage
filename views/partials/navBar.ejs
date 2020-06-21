@@ -1,0 +1,73 @@
+<nav id="main-nav" class="navbar navbar-expand-lg 
+  <%= (locals.extra) ? locals.extra : null %>
+  <%= (locals.color) ? locals.color : 'navbar-dark' %>
+  <%= (locals.bgColor) ? locals.bgColor : 'bg-dark' %>">
+  <a class="navbar-brand" href="/">Daniel's Homepage</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBar" aria-controls="navBar"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navBar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <%= locals.active === 'home' ? 'active' : null %>">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= locals.active === 'blog' ? 'active' : null %>" href="/blog">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= locals.active === 'aboutMe' ? 'active' : null %>" href="/about-me">About Me</a>
+      </li>
+    </ul>
+    <hr style="border-color: white;">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="" class="nav-link" data-toggle="modal" data-target="#searchModal"><span class="material-icons align-middle">search</span><span class="d-lg-none align-middle">Search</span></a>
+      </li>
+      <% if (!locals.currentUser) { %>
+      <li class="nav-item">
+        <a class="nav-link <%= locals.active === 'login' ? 'active' : null %>" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= locals.active === 'register' ? 'active' : null %>" href="/register">Register</a>
+      </li>
+      <% } else { %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <img style="height: 30px; width: 30px" class="rounded-circle"
+            src="<%= currentUser.profileImage ? currentUser.profileImage.url : '/images/profile_img.svg' %>"
+            alt="profile image">
+          <%= currentUser.displayName %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right <%= (locals.bgColor) ? locals.bgColor : 'bg-dark' %>" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item text-white" href="/profile">Profile</a>
+          <a class="dropdown-item text-white" href="/change-password">Change Password</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-white" href="/logout">Logout</a>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
+
+<div id="searchModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline" action="/blog/search" method="GET">
+          <input name="search" class="form-control mr-sm-2 flex-grow-1" style="width: unset;" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success ml-2" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

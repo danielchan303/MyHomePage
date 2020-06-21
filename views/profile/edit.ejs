@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+<%- include('../partials/flashMsg') %>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-9 col-md-6 mx-auto">
+            <!-- Update Profile Form -->
+            <div class="card my-3">
+                <form id="updateProfileForm" action="/profile" method="POST" enctype="multipart/form-data">
+                    <div class="card-header">
+                        <h5>Update Profile</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input value="<%= currentUser.email %>" id="email" name="email" type="email" class="form-control" placeholder="e-mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="display-name">Display Name</label>
+                            <input value="<%= currentUser.displayName %>" id="display-name" name="displayName" type="text" class="form-control"
+                                placeholder="Display Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-image">Profile Image</label>
+                            <input id="profile-image" name="profileImage" type="file" class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-block">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    axios.defaults.headers.common['csrf-token'] = '<%= csrfToken %>';
+    $('#updateProfileForm').on('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(document.querySelector('#updateProfileForm'));
+        // show loading button
+        $('form button').html(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...'
+        );
+        axios.post('/profile', formData)
+            .then(response => {
+                // redirect if success
+                window.location.replace("/profile");
+            })
+            .catch(error => {
+                // show error message and revert button status
+                $('form button').html('Update Profile');
+                alert('Some errors has occured, cannot update. Please try again later');
+            });
+    });
+</script>
+<%- include('../partials/footer') %>

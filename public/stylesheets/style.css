@@ -1,0 +1,61 @@
+body {
+  height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card img {
+  max-height: 60vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.navbar-toggler, .navbar-toggler:focus {
+  border: none;
+  outline: none;
+}
+
+nav .dropdown-menu {
+  border: none;
+  border-radius: 0;
+}
+
+nav .dropdown-item:hover {
+  background-color: unset;
+}
+
+#homepage-carousel img {
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top:0;
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.overlayItem {
+  height: 100%;
+}
+
+.modal-backdrop {
+  z-index:9;
+}
+
+#blog p {
+  font-size: 1.2em;
+}
+
+.media p {
+  white-space: pre-wrap;
+}
