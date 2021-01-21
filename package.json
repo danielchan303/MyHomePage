@@ -33,7 +33,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "querystring": "^0.2.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "socketio-auth": "^0.1.1",
     "validate.js": "^0.13.1",
     "xss": "^1.0.6"
